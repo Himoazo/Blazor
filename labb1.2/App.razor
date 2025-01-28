@@ -1,0 +1,12 @@
+﻿<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Finns ej</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Det finns inget att visa i denna sökväg.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

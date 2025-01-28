@@ -1,0 +1,44 @@
+﻿@page "/json"
+@inject HttpClient Http
+
+<PageTitle>Json data</PageTitle>
+
+<h3>Json</h3>
+
+@if(phones is not null)
+{
+	<ul id="mobileList">
+		@foreach (var device in phones)
+		{
+			<li>
+				<span><strong>mobilens ID: @device.ID </strong></span>
+				<span><strong>Mobilens namn: </strong>@device.Name</span>
+				<span><strong>Färg: </strong>@device.Data?.color</span>
+				<span><strong>Lagringsutrymme: </strong>@device.Data?.capacity</span>
+			</li>
+		}
+	</ul>
+}
+else if (phones is null)
+{
+	<p>Inga telefoner att visa för tilfället</p>
+}
+
+@code {
+
+	private Phones[]? phones;
+
+	protected override async Task OnInitializedAsync(){
+		phones = await Http.GetFromJsonAsync<Phones[]>("https://api.restful-api.dev/objects");
+	}
+
+	public class PhoneData {
+		public string? color { set; get; }
+		public string? capacity { set; get; }
+	}
+	public class Phones{
+		public string? ID { set; get; }
+		public string? Name { set; get; }
+		public PhoneData? Data { set; get; }
+	}
+}

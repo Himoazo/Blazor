@@ -1,0 +1,69 @@
+﻿@page "/convert"
+
+<PageTitle>Konvertera</PageTitle>
+
+<h3>Konvertera</h3>
+
+@* Meter & Feet *@
+<div class="converter">
+	<div class="convertSection">
+		<label for="meter">Meter:</label>
+		<input type="number" id="meter" name="meter" min="0" @bind:event="oninput" @bind:get="meters" @bind:set="MeterToFeet">
+	</div>
+	
+
+	<div class="convertSection">
+		<label for="foot">Fot:</label>
+		<input type="number" id="foot" name="foot" min="0" @bind:event="oninput" @bind:get="foot" @bind:set="FeetToMeter">
+	</div>
+</div>
+
+
+@code {
+	private double meters = 0;
+	private double foot = 0;
+
+	private void MeterToFeet(double value)
+	{
+		meters = value;
+		foot = Math.Round((meters * 3.281), 2, MidpointRounding.ToEven);
+	}
+
+	private void FeetToMeter(double value)
+	{
+		foot = value;
+		meters = Math.Round((foot / 3.281), 2, MidpointRounding.ToEven);
+	}
+}
+
+@* Km & Miles *@
+<div class="converter">
+	<div class="convertSection">
+		<label for="km">Km/h:</label>
+		<input type="number" id="km" name="km" min="0" @bind:event="oninput" @bind:get="km" @bind:set="KmToMile">
+	</div>
+	
+
+	<div class="convertSection">
+		<label for="mile">Mile/h:</label>
+		<input type="number" id="mile" name="mile" min="0" @bind:event="oninput" @bind:get="mile" @bind:set="MileToKm">
+	</div>
+</div>
+
+
+@code{
+	private double km = 0;
+	private double mile = 0;
+
+	private void KmToMile(double value)
+	{
+		km = value;
+		mile = Math.Round((km / 1.609), 0, MidpointRounding.ToEven);
+	}
+
+	private void MileToKm(double value)
+	{
+		mile = value;
+		km = Math.Round((mile * 1.609), 0, MidpointRounding.ToEven);
+	}
+}
